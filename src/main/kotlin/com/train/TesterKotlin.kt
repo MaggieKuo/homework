@@ -9,7 +9,7 @@ fun main(args: Array<String>) {
     if (total>0){
         var roundTripTicket:Int
         do {
-            println("How many round-trip tickets (lass then or equle to $total):")
+            println("How many round-trip tickets (lass then or equal to $total):")
             roundTripTicket = scanner.nextInt()
         }while (roundTripTicket>total)
         
