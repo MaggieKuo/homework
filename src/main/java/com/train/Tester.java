@@ -16,18 +16,8 @@ public class Tester {
             roundTrip = scanner.nextInt();
         }while (roundTrip>num);
 
-        List<Ticket> tickets = new ArrayList<>();
-        for (int i = 0; i < roundTrip; i++) {
-            tickets.add(new RoundTripTicket());
-        }
-        int oneWayTickets = num - roundTrip;
-        for (int i = 0; i < oneWayTickets; i++) {
-            tickets.add(new OneWayTicket());
-        }
         int totalAmount = 0;
-        for (Ticket ticket : tickets) {
-            totalAmount += ticket.getFare();
-        }
+        totalAmount = new RoundTripTicket().getFare()*roundTrip + new OneWayTicket().getFare()*(num-roundTrip);
 
         System.out.println("Total tickets: " + num);
         System.out.println("Round-trip: " + roundTrip);
