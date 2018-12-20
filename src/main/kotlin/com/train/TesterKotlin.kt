@@ -3,25 +3,51 @@ package com.train
 import java.util.*
 
 fun main(args: Array<String>) {
-    println("Please enter number of tickets: ")
+
     val scanner = Scanner(System.`in`)
-    val total = scanner.nextInt()
-    if (total>0){
-        var roundTripTicket:Int
-        do {
-            println("How many round-trip tickets (lass then or equal to $total):")
-            roundTripTicket = scanner.nextInt()
-        }while (roundTripTicket>total)
-        
-        println("Total tickets: $total")
-        println("Round-trip: $roundTripTicket")
-        println("Total: ${Ticket1(roundTripTicket, 2000, 10).getTotalFare() +
-                Ticket1(total-roundTripTicket, 1000, 0).getTotalFare()}")
-    }
+    var tickets : Int
+    do{
+        println("Please enter number of tickets: ")
+        tickets = scanner.nextInt()
+        if (tickets > 0){
+            val booking = KBooking(tickets)
+            booking.start()
+            booking.print()
+        }
+    }while (tickets != -1)
+
 }
 
-class Ticket1(var num: Int,
-              var fare: Int,
-              var discount: Int){
-    fun getTotalFare() = (fare - (fare*discount)/100)*num
+class KBooking(val tickets: Int){
+    private var roundTripTickets = 0
+    private lateinit var scanner: Scanner
+    init {
+        scanner = Scanner(System.`in`)
+    }
+
+    fun start(){
+        do {
+            println("How many round-trip tickets (lass then or equal to $tickets):")
+            roundTripTickets = scanner.nextInt()
+        }while (roundTripTickets>tickets)
+    }
+
+    fun calculate() = KRoundTripTicket().getFare()* roundTripTickets +
+            KOneWayTicket().getFare()*(tickets-roundTripTickets)
+
+    fun print(){
+        println("Total tickets: $tickets")
+        println("Round-trip: $roundTripTickets")
+        println("Total: ${calculate()}")
+    }
+
 }
+
+open class KTicket(var fare: Int?,
+                   var discount: Int?){
+    fun getFare() = fare!! - (fare!! * discount!!)/100
+}
+
+class KRoundTripTicket() : KTicket(2000, 10)
+
+class KOneWayTicket() : KTicket(1000, 0)
