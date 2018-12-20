@@ -20,9 +20,17 @@ public class Tester {
         for (int i = 0; i < roundTrip; i++) {
             tickets.add(new RoundTripTicket());
         }
+        int oneWayTickets = num - roundTrip;
+        for (int i = 0; i < oneWayTickets; i++) {
+            tickets.add(new OneWayTicket());
+        }
+        int totalAmount = 0;
+        for (Ticket ticket : tickets) {
+            totalAmount += ticket.getFare();
+        }
 
         System.out.println("Total tickets: " + num);
         System.out.println("Round-trip: " + roundTrip);
-        System.out.println("Total: " + (tickets.size()==0 ? 0 : tickets.get(0).getFare()*roundTrip));
+        System.out.println("Total: " + totalAmount);
     }
 }

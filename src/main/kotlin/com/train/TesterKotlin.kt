@@ -15,7 +15,8 @@ fun main(args: Array<String>) {
         
         println("Total tickets: $total")
         println("Round-trip: $roundTripTicket")
-        println("Total: ${Ticket1(roundTripTicket, 2000, 10).getTotalFare()}")
+        println("Total: ${Ticket1(roundTripTicket, 2000, 10).getTotalFare() +
+                Ticket1(total-roundTripTicket, 1000, 0).getTotalFare()}")
     }
 }
 
