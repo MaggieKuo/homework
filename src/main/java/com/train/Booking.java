@@ -6,7 +6,7 @@ public class Booking {
     private final Scanner scanner;
     private int tickets;
     private int roundTrips;
-    private int totalAmount;
+    private float totalAmount;
 
     public Booking(int tickets) {
         this.tickets = tickets;

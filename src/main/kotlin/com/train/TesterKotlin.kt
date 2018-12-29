@@ -1,4 +1,4 @@
-package com.train
+package com.kotlin
 
 import java.util.*
 
@@ -7,10 +7,11 @@ fun main(args: Array<String>) {
     val scanner = Scanner(System.`in`)
     var tickets : Int
     do{
-        println("Please enter number of tickets: ")
-        tickets = scanner.nextInt()
+        tickets = scanner.input("Please enter number of tickets: ", {scanner.nextInt()})
+//        println("Please enter number of tickets: ")
+//        tickets = scanner.nextInt()
         if (tickets > 0){
-            val booking = KBooking(tickets)
+            val booking = Booking(tickets)
             booking.start()
             booking.print()
         }
@@ -18,7 +19,8 @@ fun main(args: Array<String>) {
 
 }
 
-class KBooking(val tickets: Int){
+
+class Booking(val tickets: Int){
     private var roundTripTickets = 0
     private lateinit var scanner: Scanner
     init {
@@ -27,13 +29,14 @@ class KBooking(val tickets: Int){
 
     fun start(){
         do {
-            println("How many round-trip tickets (lass then or equal to $tickets):")
-            roundTripTickets = scanner.nextInt()
+            roundTripTickets = scanner.input("How many round-trip tickets (lass then or equal to $tickets):", {scanner.nextInt()})
+//            println("How many round-trip tickets (lass then or equal to $tickets):")
+//            roundTripTickets = scanner.nextInt()
         }while (roundTripTickets>tickets)
     }
 
-    fun calculate() = KRoundTripTicket().getFare()* roundTripTickets +
-            KOneWayTicket().getFare()*(tickets-roundTripTickets)
+    fun calculate() = KRoundTripTicket().getSaleAmount()* roundTripTickets +
+            KOneWayTicket().getSaleAmount()*(tickets-roundTripTickets)
 
     fun print(){
         println("Total tickets: $tickets")
@@ -43,11 +46,12 @@ class KBooking(val tickets: Int){
 
 }
 
-open class KTicket(var fare: Int?,
-                   var discount: Int?){
-    fun getFare() = fare!! - (fare!! * discount!!)/100
+open class Ticket(var fare : Int,
+                   var discount: Int){
+    
+    fun getSaleAmount() = fare - (fare * discount)/100
 }
 
-class KRoundTripTicket() : KTicket(2000, 10)
+class KRoundTripTicket() : Ticket(2000, 10)
 
-class KOneWayTicket() : KTicket(1000, 0)
+class KOneWayTicket() : Ticket(1000, 0)

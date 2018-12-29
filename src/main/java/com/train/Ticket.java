@@ -9,8 +9,7 @@ public class Ticket {
     int type;
     int fare;
 
-    // 1-100
-    int discount;
+    float discount;
 
     public int getType() {
         return type;
@@ -20,19 +19,19 @@ public class Ticket {
         this.type = type;
     }
 
-    public int getFare() {
-        return fare - (fare * discount)/100;
+    public float getFare() {
+        return fare - (fare * discount);
     }
 
     public void setFare(int fare) {
         this.fare = fare;
     }
 
-    public int getDiscount() {
+    public float getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(float discount) {
         this.discount = discount;
     }
 }
